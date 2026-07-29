@@ -1,0 +1,406 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ======================================================
+// ENUMS
+// ======================================================
+
+enum UserRole {
+  CUSTOMER
+  PHARMACY_STAFF
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  DISABLED
+}
+
+enum PharmacyMemberRole {
+  OWNER
+  MANAGER
+  STAFF
+}
+
+enum VerificationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  SUSPENDED
+}
+
+enum ReservationStatus {
+  PENDING
+  CONFIRMED
+  READY_FOR_PICKUP
+  COLLECTED
+  CANCELLED
+  EXPIRED
+}
+
+enum NotificationType {
+  RESERVATION_CREATED
+  RESERVATION_CONFIRMED
+  RESERVATION_READY
+  RESERVATION_CANCELLED
+  RESERVATION_EXPIRED
+  MEDICINE_AVAILABLE
+  LOW_STOCK
+  SYSTEM
+}
+
+enum StorageProvider {
+  LOCAL
+  S3
+}
+
+enum DocumentReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+// ======================================================
+// USER
+// ======================================================
+
+model User {
+  id           String     @id @default(cuid())
+  name         String
+  email        String     @unique
+  passwordHash String?
+  role         UserRole   @default(CUSTOMER)
+  status       UserStatus @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  pharmacyMemberships PharmacyMember[]
+  reservations        Reservation[]
+  watchlists          Watchlist[]
+  notifications       Notification[]
+
+  uploadedDocuments VerificationDocument[] @relation("DocumentUploader")
+  reviewedDocuments VerificationDocument[] @relation("DocumentReviewer")
+
+  auditLogs AuditLog[] @relation("AuditActor")
+
+  @@index([role])
+  @@index([status])
+  @@index([createdAt])
+}
+
+// ======================================================
+// PHARMACY
+// ======================================================
+
+model Pharmacy {
+  id   String @id @default(cuid())
+  slug String @unique
+  name String
+
+  licenceNumber String? @unique
+  phone         String?
+  email         String?
+
+  addressLine1 String
+  addressLine2 String?
+  city         String
+  district     String?
+  postalCode   String?
+
+  latitude  Float?
+  longitude Float?
+
+  verificationStatus VerificationStatus @default(PENDING)
+  verifiedAt         DateTime?
+  rejectionReason    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  members               PharmacyMember[]
+  inventory             Inventory[]
+  reservations          Reservation[]
+  verificationDocuments VerificationDocument[]
+
+  @@index([verificationStatus])
+  @@index([city])
+  @@index([createdAt])
+}
+
+// ======================================================
+// PHARMACY MEMBER
+// Connects a staff user to a pharmacy.
+// ======================================================
+
+model PharmacyMember {
+  id String @id @default(cuid())
+
+  userId     String
+  pharmacyId String
+  memberRole PharmacyMemberRole @default(STAFF)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  pharmacy Pharmacy @relation(fields: [pharmacyId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, pharmacyId])
+  @@index([userId])
+  @@index([pharmacyId])
+}
+
+// ======================================================
+// MEDICINE
+// Shared medicine catalogue.
+// ======================================================
+
+model Medicine {
+  id   String @id @default(cuid())
+  code String @unique
+
+  genericName      String
+  brandName        String?
+  dosage           String
+  form             String
+  activeIngredient String?
+
+  description          String?
+  prescriptionRequired Boolean @default(false)
+  active               Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  inventory  Inventory[]
+  watchlists Watchlist[]
+
+  @@index([genericName])
+  @@index([brandName])
+  @@index([active])
+}
+
+// ======================================================
+// INVENTORY
+// Connects one medicine to one pharmacy.
+// ======================================================
+
+model Inventory {
+  id String @id @default(cuid())
+
+  pharmacyId String
+  medicineId String
+
+  quantity          Int @default(0)
+  reservedQuantity  Int @default(0)
+  lowStockThreshold Int @default(5)
+
+  price Decimal @db.Decimal(10, 2)
+
+  lastRestockedAt DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  pharmacy Pharmacy @relation(fields: [pharmacyId], references: [id], onDelete: Cascade)
+  medicine Medicine @relation(fields: [medicineId], references: [id], onDelete: Restrict)
+
+  reservationItems ReservationItem[]
+
+  @@unique([pharmacyId, medicineId])
+  @@index([pharmacyId])
+  @@index([medicineId])
+  @@index([updatedAt])
+}
+
+// ======================================================
+// RESERVATION
+// Main reservation record belonging to a customer.
+// ======================================================
+
+model Reservation {
+  id String @id @default(cuid())
+
+  customerId String
+  pharmacyId String
+
+  status     ReservationStatus @default(PENDING)
+  pickupCode String?           @unique
+
+  expiresAt DateTime
+
+  confirmedAt DateTime?
+  readyAt     DateTime?
+  collectedAt DateTime?
+  cancelledAt DateTime?
+
+  cancellationReason String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  customer User     @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  pharmacy Pharmacy @relation(fields: [pharmacyId], references: [id], onDelete: Restrict)
+
+  items         ReservationItem[]
+  notifications Notification[]
+
+  @@index([customerId])
+  @@index([pharmacyId])
+  @@index([status])
+  @@index([expiresAt])
+  @@index([createdAt])
+}
+
+// ======================================================
+// RESERVATION ITEM
+// Stores the inventory item and quantity being reserved.
+// ======================================================
+
+model ReservationItem {
+  id String @id @default(cuid())
+
+  reservationId String
+  inventoryId   String
+
+  quantity  Int
+  unitPrice Decimal @db.Decimal(10, 2)
+
+  createdAt DateTime @default(now())
+
+  reservation Reservation @relation(fields: [reservationId], references: [id], onDelete: Cascade)
+  inventory   Inventory   @relation(fields: [inventoryId], references: [id], onDelete: Restrict)
+
+  @@unique([reservationId, inventoryId])
+  @@index([reservationId])
+  @@index([inventoryId])
+}
+
+// ======================================================
+// WATCHLIST
+// Allows a customer to follow medicine availability.
+// ======================================================
+
+model Watchlist {
+  id String @id @default(cuid())
+
+  customerId String
+  medicineId String
+
+  radiusKm Int     @default(10)
+  active   Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  customer User     @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  medicine Medicine @relation(fields: [medicineId], references: [id], onDelete: Cascade)
+
+  @@unique([customerId, medicineId])
+  @@index([customerId])
+  @@index([medicineId])
+  @@index([active])
+}
+
+// ======================================================
+// NOTIFICATION
+// Stores in-application user notifications.
+// ======================================================
+
+model Notification {
+  id String @id @default(cuid())
+
+  userId        String
+  reservationId String?
+
+  type  NotificationType
+  title String
+  body  String
+
+  readAt DateTime?
+
+  createdAt DateTime @default(now())
+
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  reservation Reservation? @relation(fields: [reservationId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([reservationId])
+  @@index([readAt])
+  @@index([createdAt])
+}
+
+// ======================================================
+// VERIFICATION DOCUMENT
+// Stores metadata about uploaded pharmacy documents.
+// ======================================================
+
+model VerificationDocument {
+  id String @id @default(cuid())
+
+  pharmacyId   String
+  uploadedById String
+  reviewedById String?
+
+  documentType String
+
+  originalName String
+  mimeType     String
+  sizeBytes    Int
+
+  storageProvider StorageProvider @default(LOCAL)
+  storageKey      String
+
+  reviewStatus DocumentReviewStatus @default(PENDING)
+  reviewReason String?
+
+  reviewedAt DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  pharmacy   Pharmacy @relation(fields: [pharmacyId], references: [id], onDelete: Cascade)
+  uploadedBy User     @relation("DocumentUploader", fields: [uploadedById], references: [id], onDelete: Restrict)
+  reviewedBy User?    @relation("DocumentReviewer", fields: [reviewedById], references: [id], onDelete: SetNull)
+
+  @@index([pharmacyId])
+  @@index([uploadedById])
+  @@index([reviewedById])
+  @@index([reviewStatus])
+}
+
+// ======================================================
+// AUDIT LOG
+// Records important administrative and system actions.
+// ======================================================
+
+model AuditLog {
+  id String @id @default(cuid())
+
+  actorId String?
+
+  action     String
+  entityType String
+  entityId   String
+
+  metadata Json?
+
+  ipAddress String?
+  userAgent String?
+
+  createdAt DateTime @default(now())
+
+  actor User? @relation("AuditActor", fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([actorId])
+  @@index([entityType, entityId])
+  @@index([action])
+  @@index([createdAt])
+}
