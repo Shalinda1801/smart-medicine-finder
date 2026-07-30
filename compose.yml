@@ -1,0 +1,29 @@
+services:
+  database:
+    image: postgres:17-alpine
+    container_name: smart-medicine-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_USER: medicine_user
+      POSTGRES_PASSWORD: medicine_password
+      POSTGRES_DB: medicine_finder
+
+    ports:
+      - "127.0.0.1:15432:5432"
+
+    volumes:
+      - medicine_postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U medicine_user -d medicine_finder",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  medicine_postgres_data:
