@@ -1,11 +1,5 @@
 import { z } from "zod";
 
-const nameSchema = z
-  .string()
-  .trim()
-  .min(2, "Name must contain at least 2 characters.")
-  .max(80, "Name cannot exceed 80 characters.");
-
 const emailSchema = z
   .string()
   .trim()
@@ -32,18 +26,21 @@ const passwordSchema = z
 
 export const registerSchema = z
   .object({
-    name: nameSchema,
+    name: z
+      .string()
+      .trim()
+      .min(2, "Name must contain at least 2 characters.")
+      .max(80, "Name cannot exceed 80 characters."),
+
     email: emailSchema,
     password: passwordSchema,
 
-    confirmPassword: z.string().min(
-      1,
-      "Please confirm your password.",
-    ),
+    confirmPassword: z
+      .string()
+      .min(1, "Please confirm your password."),
   })
   .refine(
-    (data) =>
-      data.password === data.confirmPassword,
+    (data) => data.password === data.confirmPassword,
     {
       message: "Passwords do not match.",
       path: ["confirmPassword"],

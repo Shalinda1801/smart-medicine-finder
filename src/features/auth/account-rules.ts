@@ -18,6 +18,10 @@ export function canUserSignIn(
 export function assertUserCanSignIn(
   status: UserStatus,
 ): void {
+  if (status === "ACTIVE") {
+    return;
+  }
+
   if (status === "SUSPENDED") {
     throw new AppError(
       "ACCOUNT_SUSPENDED",
@@ -26,11 +30,9 @@ export function assertUserCanSignIn(
     );
   }
 
-  if (status === "DISABLED") {
-    throw new AppError(
-      "ACCOUNT_DISABLED",
-      "This account has been disabled.",
-      403,
-    );
-  }
+  throw new AppError(
+    "ACCOUNT_DISABLED",
+    "This account has been disabled.",
+    403,
+  );
 }
