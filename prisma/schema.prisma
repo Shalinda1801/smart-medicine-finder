@@ -204,6 +204,7 @@ model Inventory {
   reservedQuantity  Int @default(0)
   lowStockThreshold Int @default(5)
 
+  isActive           Boolean  @default(true)
   price Decimal @db.Decimal(10, 2)
 
   lastRestockedAt DateTime?

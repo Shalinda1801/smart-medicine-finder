@@ -1,44 +1,100 @@
 import { z } from "zod";
 
-const databaseIdSchema = z
-  .string()
-  .trim()
-  .min(1, "A valid ID is required.");
+const queryBoolean = z.preprocess(
+  (value) => {
+    if (
+      value === undefined ||
+      value === null ||
+      value === ""
+    ) {
+      return undefined;
+    }
 
-const quantitySchema = z
-  .number()
-  .int("Quantity must be a whole number.")
-  .min(0, "Quantity cannot be negative.")
-  .max(100_000, "Quantity is too large.");
+    if (value === "true" || value === true) {
+      return true;
+    }
 
-const priceSchema = z
-  .number()
-  .finite("Price must be a valid number.")
-  .positive("Price must be greater than zero.")
-  .max(1_000_000, "Price is too large.");
+    if (value === "false" || value === false) {
+      return false;
+    }
 
-const thresholdSchema = z
-  .number()
-  .int("Low-stock threshold must be a whole number.")
-  .min(0, "Low-stock threshold cannot be negative.")
-  .max(10_000, "Low-stock threshold is too large.");
+    return value;
+  },
+  z.boolean().optional().default(false),
+);
 
-export const inventoryIdSchema = z.object({
-  inventoryId: databaseIdSchema,
+export const inventoryListSchema = z.object({
+  q: z
+    .string()
+    .trim()
+    .max(100, "Search cannot exceed 100 characters.")
+    .default(""),
+
+  page: z.coerce
+    .number()
+    .int()
+    .min(1)
+    .default(1),
+
+  pageSize: z.coerce
+    .number()
+    .int()
+    .min(1)
+    .max(50)
+    .default(10),
+
+  includeInactive: queryBoolean,
 });
 
 export const createInventorySchema = z.object({
-  medicineId: databaseIdSchema,
-  quantity: quantitySchema,
-  price: priceSchema,
-  lowStockThreshold: thresholdSchema.default(5),
+  medicineId: z
+    .string()
+    .trim()
+    .min(1, "Medicine ID is required."),
+
+  quantity: z.coerce
+    .number()
+    .int("Quantity must be a whole number.")
+    .min(0, "Quantity cannot be negative."),
+
+  price: z.coerce
+    .number()
+    .positive("Price must be greater than zero."),
+
+  lowStockThreshold: z.coerce
+    .number()
+    .int()
+    .min(0)
+    .default(5),
+
+  isActive: z
+    .boolean()
+    .optional()
+    .default(true),
 });
 
 export const updateInventorySchema = z
   .object({
-    quantity: quantitySchema.optional(),
-    price: priceSchema.optional(),
-    lowStockThreshold: thresholdSchema.optional(),
+    quantity: z.coerce
+      .number()
+      .int()
+      .min(0)
+      .optional(),
+
+    price: z.coerce
+      .number()
+      .positive()
+      .optional(),
+
+    lowStockThreshold: z.coerce
+      .number()
+      .int()
+      .min(0)
+      .optional(),
+
+    isActive: z
+      .boolean()
+      .optional(),
   })
   .refine(
     (data) =>
@@ -47,42 +103,15 @@ export const updateInventorySchema = z
       ),
     {
       message:
-        "Provide at least one inventory field to update.",
+        "Provide at least one field to update.",
     },
   );
 
-export const adjustInventorySchema = z.object({
-  adjustment: z
-    .number()
-    .int("Stock adjustment must be a whole number.")
-    .min(-10_000, "Stock reduction is too large.")
-    .max(10_000, "Stock increase is too large.")
-    .refine(
-      (value) => value !== 0,
-      "Stock adjustment cannot be zero.",
-    ),
+export type InventoryListInput =
+  z.infer<typeof inventoryListSchema>;
 
-  reason: z
-    .string()
-    .trim()
-    .min(
-      3,
-      "Adjustment reason must contain at least 3 characters.",
-    )
-    .max(
-      250,
-      "Adjustment reason cannot exceed 250 characters.",
-    ),
-});
+export type CreateInventoryInput =
+  z.infer<typeof createInventorySchema>;
 
-export type CreateInventoryInput = z.infer<
-  typeof createInventorySchema
->;
-
-export type UpdateInventoryInput = z.infer<
-  typeof updateInventorySchema
->;
-
-export type AdjustInventoryInput = z.infer<
-  typeof adjustInventorySchema
->;
+export type UpdateInventoryInput =
+  z.infer<typeof updateInventorySchema>;

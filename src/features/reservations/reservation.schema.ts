@@ -1,72 +1,48 @@
 import { z } from "zod";
 
-import {
-  PHARMACY_RESERVATION_ACTIONS,
-} from "@/features/reservations/reservation-rules";
-
-const databaseIdSchema = z
-  .string()
-  .trim()
-  .min(1, "A valid ID is required.");
-
-export const reservationIdSchema = z.object({
-  reservationId: databaseIdSchema,
-});
-
 export const createReservationSchema = z.object({
-  inventoryId: databaseIdSchema,
-
-  quantity: z
-    .number()
-    .int("Reservation quantity must be a whole number.")
-    .min(
-      1,
-      "Reservation quantity must be at least one.",
-    )
-    .max(
-      100,
-      "A maximum of 100 units can be reserved.",
-    ),
-});
-
-export const cancelReservationSchema = z.object({
-  reason: z
+  inventoryId: z
     .string()
     .trim()
-    .min(
-      3,
-      "Cancellation reason must contain at least 3 characters.",
-    )
-    .max(
-      250,
-      "Cancellation reason cannot exceed 250 characters.",
-    )
-    .optional(),
+    .min(1, "Inventory ID is required."),
+
+  quantity: z.coerce
+    .number()
+    .int("Quantity must be a whole number.")
+    .min(1, "You must reserve at least one item.")
+    .max(50, "You cannot reserve more than 50 items."),
+});
+
+export const reservationListSchema = z.object({
+  page: z.coerce
+    .number()
+    .int()
+    .min(1)
+    .default(1),
+
+  pageSize: z.coerce
+    .number()
+    .int()
+    .min(1)
+    .max(50)
+    .default(10),
 });
 
 export const updateReservationStatusSchema =
   z.object({
-    status: z.enum(
-      PHARMACY_RESERVATION_ACTIONS,
-    ),
-
-    reason: z
-      .string()
-      .trim()
-      .max(
-        250,
-        "Reason cannot exceed 250 characters.",
-      )
-      .optional(),
+    status: z.enum([
+      "CONFIRMED",
+      "READY_FOR_PICKUP",
+      "COLLECTED",
+      "CANCELLED",
+    ]),
   });
 
-export type CreateReservationInput = z.infer<
-  typeof createReservationSchema
->;
+export type CreateReservationInput =
+  z.infer<typeof createReservationSchema>;
 
-export type CancelReservationInput = z.infer<
-  typeof cancelReservationSchema
->;
+export type ReservationListInput =
+  z.infer<typeof reservationListSchema>;
 
 export type UpdateReservationStatusInput =
   z.infer<
