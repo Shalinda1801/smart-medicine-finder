@@ -1,0 +1,710 @@
+/* ==========================================================
+   MEDIFLUX CLEAN 3D MEDICINE VISUAL
+========================================================== */
+
+
+/* ==========================================================
+   ORBIT THEME VARIABLES
+
+   DEFAULT / LIGHT MODE:
+   Transparent white rings with a tiny neutral outline
+   so they remain visible on bright pharmacy images.
+========================================================== */
+
+:root {
+  --medicine-orbit-line:
+    rgba(255, 255, 255, 0.62);
+
+  --medicine-orbit-line-soft:
+    rgba(255, 255, 255, 0.43);
+
+  --medicine-orbit-glow:
+    rgba(255, 255, 255, 0.18);
+
+  --medicine-orbit-outline:
+    rgba(36, 52, 48, 0.16);
+
+  --medicine-orbit-inner-glow:
+    rgba(255, 255, 255, 0.09);
+}
+
+
+/* ==========================================================
+   LIGHT MODE
+
+   Soft transparent white.
+   Not green.
+   Not hard white.
+========================================================== */
+
+html[data-theme="light"] {
+  --medicine-orbit-line:
+    rgba(255, 255, 255, 0.62);
+
+  --medicine-orbit-line-soft:
+    rgba(255, 255, 255, 0.43);
+
+  --medicine-orbit-glow:
+    rgba(255, 255, 255, 0.18);
+
+  --medicine-orbit-outline:
+    rgba(36, 52, 48, 0.16);
+
+  --medicine-orbit-inner-glow:
+    rgba(255, 255, 255, 0.09);
+}
+
+
+/* ==========================================================
+   DARK MODE
+
+   Softer white rings because the dark background already
+   provides enough contrast.
+========================================================== */
+
+html[data-theme="dark"] {
+  --medicine-orbit-line:
+    rgba(255, 255, 255, 0.30);
+
+  --medicine-orbit-line-soft:
+    rgba(255, 255, 255, 0.20);
+
+  --medicine-orbit-glow:
+    rgba(255, 255, 255, 0.08);
+
+  --medicine-orbit-outline:
+    rgba(255, 255, 255, 0.025);
+
+  --medicine-orbit-inner-glow:
+    rgba(255, 255, 255, 0.035);
+}
+
+
+/* ==========================================================
+   MAIN STAGE
+========================================================== */
+
+.simple-med-stage {
+  position: relative;
+
+  width: 500px;
+  height: 500px;
+
+  display: grid;
+  place-items: center;
+
+  perspective: 1050px;
+
+  transform-style: preserve-3d;
+
+  isolation: isolate;
+
+  overflow: visible;
+
+  z-index: 40;
+}
+
+
+/* ==========================================================
+   SOFT BACK GLOW
+========================================================== */
+
+.simple-med-glow {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 330px;
+  height: 330px;
+
+  transform:
+    translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(48, 201, 157, 0.11) 0%,
+      rgba(67, 163, 215, 0.05) 45%,
+      transparent 74%
+    );
+
+  filter:
+    blur(22px);
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+
+/* ==========================================================
+   COMMON ORBIT STYLE
+========================================================== */
+
+.simple-orbit {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  transform-style: preserve-3d;
+
+  backface-visibility: visible;
+
+  z-index: 5;
+}
+
+
+/* ==========================================================
+   ORBIT ONE
+
+   Main wider orbit.
+
+   LIGHT:
+   Transparent white with a tiny neutral outline.
+
+   DARK:
+   Softer transparent white.
+========================================================== */
+
+.simple-orbit-one {
+  width: 410px;
+  height: 350px;
+
+  margin-left: -205px;
+  margin-top: -175px;
+
+  border:
+    1.4px solid
+    var(--medicine-orbit-line);
+
+  box-shadow:
+    0 0 0 0.6px
+    var(--medicine-orbit-outline),
+
+    0 0 15px
+    var(--medicine-orbit-glow),
+
+    inset 0 0 13px
+    var(--medicine-orbit-inner-glow);
+
+  animation:
+    orbitOne3D
+    7s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+
+@keyframes orbitOne3D {
+
+  0% {
+    transform:
+      rotateX(68deg)
+      rotateY(-12deg)
+      rotateZ(-12deg);
+  }
+
+  50% {
+    transform:
+      rotateX(72deg)
+      rotateY(8deg)
+      rotateZ(3deg);
+  }
+
+  100% {
+    transform:
+      rotateX(65deg)
+      rotateY(-5deg)
+      rotateZ(13deg);
+  }
+
+}
+
+
+/* ==========================================================
+   ORBIT TWO
+
+   Secondary orbit is intentionally slightly softer
+   than Orbit One.
+========================================================== */
+
+.simple-orbit-two {
+  width: 365px;
+  height: 365px;
+
+  margin-left: -182.5px;
+  margin-top: -182.5px;
+
+  border:
+    1.3px solid
+    var(--medicine-orbit-line-soft);
+
+  box-shadow:
+    0 0 0 0.5px
+    var(--medicine-orbit-outline),
+
+    0 0 12px
+    var(--medicine-orbit-glow);
+
+  animation:
+    orbitTwo3D
+    8s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+
+@keyframes orbitTwo3D {
+
+  0% {
+    transform:
+      rotateX(43deg)
+      rotateY(64deg)
+      rotateZ(20deg);
+  }
+
+  50% {
+    transform:
+      rotateX(53deg)
+      rotateY(58deg)
+      rotateZ(7deg);
+  }
+
+  100% {
+    transform:
+      rotateX(39deg)
+      rotateY(68deg)
+      rotateZ(-10deg);
+  }
+
+}
+
+
+/* ==========================================================
+   SEMI-TRANSPARENT GREY SPHERE
+========================================================== */
+
+.simple-med-sphere {
+  position: relative;
+
+  width: 245px;
+  height: 245px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.52);
+
+  background:
+    radial-gradient(
+      circle at 30% 24%,
+
+      rgba(255, 255, 255, 0.62) 0%,
+
+      rgba(236, 243, 241, 0.55) 38%,
+
+      rgba(194, 211, 207, 0.49) 72%,
+
+      rgba(158, 180, 175, 0.43) 100%
+    );
+
+  box-shadow:
+    0 24px 55px
+    rgba(18, 64, 53, 0.10),
+
+    inset 0 1px 1px
+    rgba(255, 255, 255, 0.62);
+
+  backdrop-filter:
+    blur(7px);
+
+  -webkit-backdrop-filter:
+    blur(7px);
+
+  z-index: 8;
+
+  animation:
+    simpleSphereFloat
+    5s
+    ease-in-out
+    infinite;
+}
+
+
+@keyframes simpleSphereFloat {
+
+  0%,
+  100% {
+    transform:
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      translateY(-7px);
+  }
+
+}
+
+
+/* ==========================================================
+   SPHERE HIGHLIGHT
+========================================================== */
+
+.simple-sphere-highlight {
+  position: absolute;
+
+  top: 24px;
+  left: 34px;
+
+  width: 90px;
+  height: 52px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(255, 255, 255, 0.24),
+      transparent 70%
+    );
+
+  transform:
+    rotate(-24deg);
+
+  pointer-events: none;
+}
+
+
+/* ==========================================================
+   MAIN CAPSULE
+========================================================== */
+
+.simple-main-capsule {
+  position: relative;
+
+  width: 132px;
+  height: 61px;
+
+  display: flex;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  border:
+    2px solid
+    rgba(255, 255, 255, 0.80);
+
+  transform:
+    rotate(-34deg);
+
+  filter:
+    drop-shadow(
+      0 15px 15px
+      rgba(8, 68, 51, 0.16)
+    );
+
+  animation:
+    simpleCapsuleFloat
+    4.2s
+    ease-in-out
+    infinite;
+
+  z-index: 12;
+}
+
+
+.simple-main-capsule span {
+  display: block;
+
+  width: 50%;
+  height: 100%;
+}
+
+
+.simple-capsule-green {
+  background:
+    linear-gradient(
+      135deg,
+      #08a972,
+      #20c98e
+    );
+}
+
+
+.simple-capsule-white {
+  background:
+    linear-gradient(
+      135deg,
+      #ffffff,
+      #edf6f3
+    );
+}
+
+
+@keyframes simpleCapsuleFloat {
+
+  0%,
+  100% {
+    transform:
+      rotate(-34deg)
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      rotate(-30deg)
+      translateY(-8px);
+  }
+
+}
+
+
+/* ==========================================================
+   INFO CARDS
+========================================================== */
+
+.simple-med-stage
+.simple-med-card {
+  z-index: 30 !important;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.68)
+    !important;
+
+  background:
+    rgba(255, 255, 255, 0.86)
+    !important;
+
+  box-shadow:
+    0 12px 30px
+    rgba(8, 59, 45, 0.09)
+    !important;
+
+  backdrop-filter:
+    blur(13px);
+
+  -webkit-backdrop-filter:
+    blur(13px);
+}
+
+
+/* ==========================================================
+   VERIFIED
+========================================================== */
+
+.simple-verified {
+  width: 27px;
+  height: 27px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 8px;
+
+  background:
+    rgba(26, 201, 140, 0.11);
+
+  color: #079767;
+
+  font-size: 14px;
+
+  font-weight: 900;
+}
+
+
+/* ==========================================================
+   STATUS
+========================================================== */
+
+.simple-med-status {
+  z-index: 30 !important;
+
+  background:
+    rgba(255, 255, 255, 0.82)
+    !important;
+
+  backdrop-filter:
+    blur(11px);
+
+  -webkit-backdrop-filter:
+    blur(11px);
+}
+
+
+/* ==========================================================
+   DARK MODE SPHERE
+========================================================== */
+
+html[data-theme="dark"]
+.simple-med-sphere {
+  border-color:
+    rgba(255, 255, 255, 0.13);
+
+  background:
+    radial-gradient(
+      circle at 30% 24%,
+
+      rgba(75, 94, 87, 0.57),
+
+      rgba(37, 54, 48, 0.54)
+      55%,
+
+      rgba(19, 34, 29, 0.50)
+    );
+}
+
+
+/* ==========================================================
+   DARK MODE INFO CARDS
+========================================================== */
+
+html[data-theme="dark"]
+.simple-med-stage
+.simple-med-card,
+
+html[data-theme="dark"]
+.simple-med-status {
+  background:
+    rgba(12, 34, 27, 0.83)
+    !important;
+
+  border-color:
+    rgba(255, 255, 255, 0.09)
+    !important;
+
+  color:
+    white
+    !important;
+}
+
+
+/* ==========================================================
+   LAPTOP
+========================================================== */
+
+@media (
+  max-width: 1200px
+) {
+
+  .simple-med-stage {
+    width: 440px;
+    height: 440px;
+  }
+
+
+  .simple-med-sphere {
+    width: 220px;
+    height: 220px;
+  }
+
+
+  .simple-main-capsule {
+    width: 120px;
+    height: 55px;
+  }
+
+
+  .simple-orbit-one {
+    width: 355px;
+    height: 295px;
+
+    margin-left: -177.5px;
+    margin-top: -147.5px;
+  }
+
+
+  .simple-orbit-two {
+    width: 320px;
+    height: 320px;
+
+    margin-left: -160px;
+    margin-top: -160px;
+  }
+
+}
+
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (
+  max-width: 700px
+) {
+
+  .simple-med-stage {
+    width: 330px;
+    height: 330px;
+
+    margin:
+      25px auto 0;
+  }
+
+
+  .simple-med-sphere {
+    width: 170px;
+    height: 170px;
+  }
+
+
+  .simple-main-capsule {
+    width: 95px;
+    height: 44px;
+  }
+
+
+  .simple-orbit-one {
+    width: 270px;
+    height: 215px;
+
+    margin-left: -135px;
+    margin-top: -107.5px;
+  }
+
+
+  .simple-orbit-two {
+    width: 235px;
+    height: 235px;
+
+    margin-left: -117.5px;
+    margin-top: -117.5px;
+  }
+
+}
+
+
+/* ==========================================================
+   REDUCED MOTION
+========================================================== */
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+
+  .simple-orbit,
+  .simple-med-sphere,
+  .simple-main-capsule {
+    animation:
+      none
+      !important;
+  }
+
+}

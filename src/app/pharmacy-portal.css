@@ -1,0 +1,817 @@
+.pharmacy-dashboard-page,
+.admin-pharmacy-page {
+  min-height: 100vh;
+
+  padding:
+    70px 6% 90px;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(24, 195, 136, 0.10),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      #f4faf7,
+      #ffffff
+    );
+}
+
+
+.portal-heading {
+  max-width: 1380px;
+
+  margin:
+    0 auto 35px;
+
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  align-items:
+    flex-end;
+
+  gap: 30px;
+}
+
+
+.portal-heading > div:first-child {
+  max-width: 760px;
+}
+
+
+.portal-label {
+  display: inline-flex;
+
+  padding:
+    7px 13px;
+
+  border-radius:
+    999px;
+
+  background:
+    #e2f8ed;
+
+  color:
+    #087d56;
+
+  font-size:
+    11px;
+
+  font-weight: 900;
+}
+
+
+.portal-heading h1 {
+  margin:
+    14px 0 8px;
+
+  color: #082b20;
+
+  font-size:
+    clamp(
+      38px,
+      5vw,
+      58px
+    );
+
+  letter-spacing:
+    -0.045em;
+}
+
+
+.portal-heading p {
+  margin: 0;
+
+  color: #697d75;
+
+  line-height: 1.7;
+}
+
+
+.portal-status-card,
+.admin-pending-counter {
+  min-width: 135px;
+
+  padding:
+    15px 18px;
+
+  display: flex;
+
+  flex-direction:
+    column;
+
+  border:
+    1px solid
+    #d8e8e1;
+
+  border-radius:
+    16px;
+
+  background: white;
+
+  box-shadow:
+    0 12px 35px
+    rgba(
+      7,
+      62,
+      44,
+      0.07
+    );
+}
+
+
+.portal-status-card span,
+.admin-pending-counter small {
+  color: #7a8c85;
+
+  font-size: 11px;
+}
+
+
+.portal-status-card strong {
+  margin-top: 4px;
+
+  color: #099665;
+}
+
+
+.admin-pending-counter strong {
+  color: #099665;
+
+  font-size: 30px;
+}
+
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+.dashboard-stat-grid {
+  max-width: 1380px;
+
+  margin:
+    0 auto 24px;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      4,
+      1fr
+    );
+
+  gap: 13px;
+}
+
+
+.dashboard-stat-grid article {
+  padding: 20px;
+
+  border:
+    1px solid
+    #dce9e3;
+
+  border-radius:
+    17px;
+
+  background: white;
+
+  box-shadow:
+    0 8px 30px
+    rgba(
+      9,
+      65,
+      47,
+      0.05
+    );
+}
+
+
+.dashboard-stat-grid span {
+  color: #788a83;
+
+  font-size: 11px;
+}
+
+
+.dashboard-stat-grid strong {
+  display: block;
+
+  margin-top: 7px;
+
+  color: #0a3a2b;
+
+  font-size: 28px;
+}
+
+
+/* =========================================================
+   DASHBOARD CARDS
+========================================================= */
+
+.portal-grid {
+  max-width: 1380px;
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    0.72fr 1.28fr;
+
+  gap: 22px;
+
+  align-items: start;
+}
+
+
+.portal-card {
+  padding: 26px;
+
+  border:
+    1px solid
+    #dce9e3;
+
+  border-radius:
+    22px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.95
+    );
+
+  box-shadow:
+    0 18px 50px
+    rgba(
+      8,
+      61,
+      44,
+      0.07
+    );
+}
+
+
+.portal-card-heading {
+  margin-bottom: 22px;
+
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  align-items:
+    center;
+}
+
+
+.portal-card-heading span {
+  color: #87958f;
+
+  font-size: 10px;
+
+  text-transform: uppercase;
+
+  letter-spacing:
+    0.08em;
+}
+
+
+.portal-card-heading h2 {
+  margin:
+    4px 0 0;
+
+  color: #103a2c;
+}
+
+
+.portal-card-icon {
+  width: 38px;
+  height: 38px;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 12px;
+
+  background:
+    #e4f8ef;
+
+  color: #099768;
+
+  font-size: 22px;
+
+  font-weight: 900;
+}
+
+
+.inventory-form {
+  display: flex;
+
+  flex-direction:
+    column;
+
+  gap: 16px;
+}
+
+
+.inventory-form label {
+  display: flex;
+
+  flex-direction:
+    column;
+
+  gap: 7px;
+
+  color: #486158;
+
+  font-size: 12px;
+
+  font-weight: 800;
+}
+
+
+.inventory-form input,
+.inventory-form select {
+  min-height: 48px;
+
+  padding:
+    0 13px;
+
+  border:
+    1px solid
+    #d8e6df;
+
+  border-radius: 11px;
+
+  background: #f7faf8;
+
+  outline: none;
+}
+
+
+.inventory-form input:focus,
+.inventory-form select:focus {
+  border-color:
+    #19a876;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(
+      25,
+      168,
+      118,
+      0.10
+    );
+}
+
+
+.inventory-form-row {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 12px;
+}
+
+
+.portal-primary-button {
+  min-height: 48px;
+
+  border: none;
+
+  border-radius: 11px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #087c57,
+      #18b47f
+    );
+
+  color: white;
+
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+
+.portal-error,
+.portal-success {
+  padding:
+    11px 13px;
+
+  border-radius: 10px;
+
+  font-size: 12px;
+}
+
+
+.portal-error {
+  background: #fff1f1;
+
+  color: #a03c3c;
+}
+
+
+.portal-success {
+  background: #e9f9f1;
+
+  color: #08714e;
+}
+
+
+.portal-page-message {
+  max-width: 1380px;
+
+  margin:
+    0 auto 20px;
+}
+
+
+.portal-empty {
+  padding: 35px;
+
+  text-align: center;
+
+  color: #71837c;
+}
+
+
+/* =========================================================
+   INVENTORY ROWS
+========================================================= */
+
+.inventory-row {
+  display: grid;
+
+  grid-template-columns:
+    1.4fr
+    0.55fr
+    0.8fr
+    auto;
+
+  gap: 12px;
+
+  align-items: center;
+
+  padding:
+    15px 13px;
+
+  border-bottom:
+    1px solid
+    #e7efeb;
+}
+
+
+.inventory-row:last-child {
+  border-bottom: none;
+}
+
+
+.inventory-name {
+  display: block;
+
+  color: #123b2e;
+
+  font-weight: 850;
+}
+
+
+.inventory-row small {
+  color: #87958f;
+}
+
+
+.inventory-number {
+  display: flex;
+
+  flex-direction:
+    column;
+}
+
+
+.inventory-number strong {
+  color: #163b30;
+}
+
+
+.inventory-status {
+  padding:
+    6px 9px;
+
+  border-radius:
+    999px;
+
+  background:
+    #e1f8ec;
+
+  color: #087b54;
+
+  font-size: 10px;
+
+  font-weight: 900;
+}
+
+
+.inventory-status.low {
+  background: #fff1d9;
+
+  color: #a3650b;
+}
+
+
+/* =========================================================
+   ADMIN
+========================================================= */
+
+.admin-pharmacy-grid {
+  max-width: 1380px;
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      1fr
+    );
+
+  gap: 18px;
+}
+
+
+.admin-pharmacy-card {
+  padding: 24px;
+
+  border:
+    1px solid
+    #dae8e2;
+
+  border-radius:
+    21px;
+
+  background: white;
+
+  box-shadow:
+    0 14px 40px
+    rgba(
+      8,
+      61,
+      44,
+      0.07
+    );
+}
+
+
+.admin-card-top {
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+}
+
+
+.admin-pharmacy-icon {
+  width: 43px;
+  height: 43px;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 13px;
+
+  background:
+    #def7eb;
+
+  color: #0a9b69;
+
+  font-size: 25px;
+
+  font-weight: 900;
+}
+
+
+.pending-pill {
+  display: inline-flex;
+
+  padding:
+    5px 8px;
+
+  border-radius:
+    999px;
+
+  background: #fff2d7;
+
+  color: #97620d;
+
+  font-size: 9px;
+
+  font-weight: 900;
+}
+
+
+.admin-card-top h2 {
+  margin:
+    6px 0 0;
+
+  color: #103a2c;
+}
+
+
+.admin-detail-grid {
+  margin:
+    22px 0;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 10px;
+}
+
+
+.admin-detail-grid div,
+.admin-address {
+  padding: 11px;
+
+  display: flex;
+
+  flex-direction:
+    column;
+
+  gap: 4px;
+
+  border-radius: 11px;
+
+  background: #f6faf8;
+}
+
+
+.admin-detail-grid small,
+.admin-address small {
+  color: #899790;
+
+  font-size: 9px;
+}
+
+
+.admin-detail-grid strong,
+.admin-address strong {
+  color: #28483e;
+
+  font-size: 12px;
+}
+
+
+.admin-map-link {
+  display: inline-flex;
+
+  margin-top: 14px;
+
+  color: #087e58;
+
+  font-size: 12px;
+
+  font-weight: 800;
+
+  text-decoration: none;
+}
+
+
+.admin-review-actions {
+  margin-top: 20px;
+
+  display: grid;
+
+  grid-template-columns:
+    0.7fr 1.3fr;
+
+  gap: 9px;
+}
+
+
+.admin-review-actions button {
+  min-height: 42px;
+
+  border-radius: 10px;
+
+  font-weight: 850;
+
+  cursor: pointer;
+}
+
+
+.reject-button {
+  border:
+    1px solid #efc9c9;
+
+  background: #fff7f7;
+
+  color: #9e4040;
+}
+
+
+.approve-button {
+  border: none;
+
+  background:
+    linear-gradient(
+      90deg,
+      #087d58,
+      #18b27e
+    );
+
+  color: white;
+}
+
+
+.admin-empty {
+  grid-column:
+    1 / -1;
+
+  min-height: 250px;
+
+  display: flex;
+
+  flex-direction:
+    column;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  border:
+    1px solid #dce9e3;
+
+  border-radius: 20px;
+
+  background: white;
+}
+
+
+@media (
+  max-width: 900px
+) {
+  .portal-grid,
+  .admin-pharmacy-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .dashboard-stat-grid {
+    grid-template-columns:
+      1fr 1fr;
+  }
+}
+
+
+@media (
+  max-width: 600px
+) {
+  .pharmacy-dashboard-page,
+  .admin-pharmacy-page {
+    padding:
+      50px 16px;
+  }
+
+
+  .portal-heading {
+    flex-direction:
+      column;
+
+    align-items:
+      flex-start;
+  }
+
+
+  .dashboard-stat-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .inventory-form-row {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .inventory-row {
+    grid-template-columns:
+      1fr 1fr;
+  }
+}

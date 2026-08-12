@@ -1,0 +1,793 @@
+/* =========================================================
+   ROLE NAVIGATION
+========================================================= */
+
+.role-navigation {
+  position: relative;
+
+  z-index: 80;
+
+  border-bottom:
+    1px solid
+    rgba(
+      11,
+      87,
+      64,
+      0.1
+    );
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.96
+    );
+
+  backdrop-filter:
+    blur(18px);
+
+  box-shadow:
+    0 9px 32px
+    rgba(
+      7,
+      55,
+      41,
+      0.07
+    );
+}
+
+
+.role-navigation-inner {
+  width:
+    min(
+      1380px,
+      92%
+    );
+
+  min-height:
+    68px;
+
+  margin: auto;
+
+  display: flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    space-between;
+
+  gap: 25px;
+}
+
+
+.role-navigation-brand {
+  display: flex;
+
+  align-items:
+    center;
+
+  gap: 11px;
+}
+
+
+.role-navigation-icon {
+  width: 36px;
+  height: 36px;
+
+  display: grid;
+
+  place-items:
+    center;
+
+  border-radius:
+    11px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #087c58,
+      #1abb83
+    );
+
+  color: white;
+
+  font-weight:
+    900;
+
+  box-shadow:
+    0 7px 20px
+    rgba(
+      13,
+      147,
+      101,
+      0.18
+    );
+}
+
+
+.admin-navigation
+.role-navigation-icon {
+  background:
+    linear-gradient(
+      135deg,
+      #115f54,
+      #167d9d
+    );
+}
+
+
+.role-navigation-brand div {
+  display: flex;
+
+  flex-direction:
+    column;
+
+  gap: 2px;
+}
+
+
+.role-navigation-brand strong {
+  color:
+    #0d382c;
+
+  font-size:
+    14px;
+}
+
+
+.role-navigation-brand small {
+  color:
+    #7d8d87;
+
+  font-size:
+    9px;
+}
+
+
+.role-navigation-links {
+  display: flex;
+
+  align-items:
+    center;
+
+  gap: 6px;
+}
+
+
+.role-navigation-links a {
+  padding:
+    9px 12px;
+
+  border-radius:
+    9px;
+
+  color:
+    #496259;
+
+  font-size:
+    12px;
+
+  font-weight:
+    800;
+
+  text-decoration:
+    none;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.role-navigation-links a:hover {
+  transform:
+    translateY(-1px);
+
+  background:
+    #e8f7f0;
+
+  color:
+    #087b55;
+}
+
+
+/* =========================================================
+   ADMIN HOME
+========================================================= */
+
+.admin-home-page {
+  min-height:
+    calc(
+      100vh - 150px
+    );
+
+  padding:
+    65px 6% 90px;
+
+  background:
+    radial-gradient(
+      circle at 8% 0%,
+      rgba(
+        20,
+        190,
+        132,
+        0.10
+      ),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 92% 5%,
+      rgba(
+        44,
+        141,
+        213,
+        0.10
+      ),
+      transparent 28%
+    ),
+    #f6faf8;
+}
+
+
+.admin-home-hero {
+  max-width:
+    1380px;
+
+  margin:
+    0 auto 35px;
+
+  display: flex;
+
+  align-items:
+    flex-end;
+
+  justify-content:
+    space-between;
+
+  gap: 35px;
+}
+
+
+.admin-home-hero > div:first-child {
+  max-width:
+    760px;
+}
+
+
+.admin-home-hero h1 {
+  margin:
+    16px 0;
+
+  color:
+    #082d22;
+
+  font-size:
+    clamp(
+      46px,
+      6vw,
+      72px
+    );
+
+  line-height:
+    0.98;
+
+  letter-spacing:
+    -0.055em;
+}
+
+
+.admin-home-hero p {
+  max-width:
+    670px;
+
+  margin: 0;
+
+  color:
+    #687d75;
+
+  line-height:
+    1.7;
+}
+
+
+.admin-system-card {
+  min-width:
+    210px;
+
+  padding:
+    20px;
+
+  display: flex;
+
+  flex-direction:
+    column;
+
+  gap: 6px;
+
+  border:
+    1px solid
+    #dce9e3;
+
+  border-radius:
+    18px;
+
+  background:
+    white;
+
+  box-shadow:
+    0 15px 45px
+    rgba(
+      7,
+      60,
+      44,
+      0.07
+    );
+}
+
+
+.admin-system-card span {
+  color:
+    #84958e;
+
+  font-size:
+    10px;
+
+  text-transform:
+    uppercase;
+
+  letter-spacing:
+    0.07em;
+}
+
+
+.admin-system-card strong {
+  display: flex;
+
+  align-items:
+    center;
+
+  gap: 8px;
+
+  color:
+    #0c7956;
+}
+
+
+.admin-system-card i {
+  width: 8px;
+  height: 8px;
+
+  border-radius:
+    50%;
+
+  background:
+    #16bd82;
+
+  box-shadow:
+    0 0 0 5px
+    rgba(
+      22,
+      189,
+      130,
+      0.10
+    );
+}
+
+
+.admin-system-card small {
+  color:
+    #86968f;
+}
+
+
+.admin-home-grid {
+  max-width:
+    1380px;
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      1fr
+    );
+
+  gap: 16px;
+}
+
+
+.admin-action-card {
+  padding: 25px;
+
+  border:
+    1px solid
+    #dce9e3;
+
+  border-radius:
+    20px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.95
+    );
+
+  color:
+    inherit;
+
+  text-decoration:
+    none;
+
+  box-shadow:
+    0 12px 35px
+    rgba(
+      8,
+      62,
+      45,
+      0.055
+    );
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+.admin-action-card:hover {
+  transform:
+    translateY(-4px);
+
+  border-color:
+    #9ad7bf;
+
+  box-shadow:
+    0 22px 50px
+    rgba(
+      8,
+      62,
+      45,
+      0.10
+    );
+}
+
+
+.admin-action-card.primary {
+  background:
+    linear-gradient(
+      145deg,
+      #073e30,
+      #09644b
+    );
+}
+
+
+.admin-action-card.primary h2,
+.admin-action-card.primary p,
+.admin-action-card.primary strong,
+.admin-action-card.primary span {
+  color: white;
+}
+
+
+.admin-action-icon {
+  width: 43px;
+  height: 43px;
+
+  margin-bottom:
+    18px;
+
+  display: grid;
+
+  place-items:
+    center;
+
+  border-radius:
+    13px;
+
+  background:
+    #e3f8ef;
+
+  color:
+    #087e58;
+
+  font-size:
+    22px;
+
+  font-weight:
+    900;
+}
+
+
+.admin-action-card.primary
+.admin-action-icon {
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.13
+    );
+
+  color: white;
+}
+
+
+.admin-action-card > span {
+  color:
+    #85958f;
+
+  font-size:
+    10px;
+
+  font-weight:
+    850;
+
+  text-transform:
+    uppercase;
+
+  letter-spacing:
+    0.07em;
+}
+
+
+.admin-action-card h2 {
+  margin:
+    6px 0 10px;
+
+  color:
+    #10382c;
+}
+
+
+.admin-action-card p {
+  min-height:
+    50px;
+
+  color:
+    #71847c;
+
+  line-height:
+    1.6;
+}
+
+
+.admin-action-card > strong {
+  display: block;
+
+  margin-top:
+    18px;
+
+  color:
+    #087e58;
+
+  font-size:
+    12px;
+}
+
+
+/* =========================================================
+   WORKFLOW
+========================================================= */
+
+.admin-workflow-panel {
+  max-width:
+    1380px;
+
+  margin:
+    28px auto 0;
+
+  padding: 26px;
+
+  border:
+    1px solid
+    #dce9e3;
+
+  border-radius:
+    21px;
+
+  background: white;
+}
+
+
+.admin-workflow-panel h2 {
+  margin:
+    9px 0 22px;
+
+  color:
+    #10392c;
+}
+
+
+.admin-workflow {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      5,
+      1fr
+    );
+
+  gap: 10px;
+}
+
+
+.admin-workflow article {
+  padding:
+    15px;
+
+  border-radius:
+    13px;
+
+  background:
+    #f4faf7;
+}
+
+
+.admin-workflow strong {
+  display: block;
+
+  margin-bottom:
+    7px;
+
+  color:
+    #08a06b;
+}
+
+
+.admin-workflow span {
+  color:
+    #49635a;
+
+  font-size:
+    12px;
+
+  font-weight:
+    750;
+}
+
+
+/* =========================================================
+   ROLE REDIRECT
+========================================================= */
+
+.portal-routing-page {
+  min-height:
+    75vh;
+
+  display: grid;
+
+  place-items: center;
+
+  background:
+    #f4faf7;
+}
+
+
+.portal-routing-card {
+  padding:
+    45px;
+
+  text-align: center;
+
+  border:
+    1px solid
+    #dae8e1;
+
+  border-radius:
+    22px;
+
+  background: white;
+
+  box-shadow:
+    0 20px 60px
+    rgba(
+      6,
+      61,
+      43,
+      0.08
+    );
+}
+
+
+.portal-routing-spinner {
+  width: 45px;
+  height: 45px;
+
+  margin:
+    0 auto 20px;
+
+  border:
+    4px solid
+    #e0eee7;
+
+  border-top-color:
+    #12a875;
+
+  border-radius:
+    50%;
+
+  animation:
+    medifluxPortalSpin
+    0.8s linear infinite;
+}
+
+
+@keyframes medifluxPortalSpin {
+  to {
+    transform:
+      rotate(360deg);
+  }
+}
+
+
+.portal-routing-card span {
+  color:
+    #099568;
+
+  font-weight:
+    900;
+}
+
+
+.portal-routing-card h1 {
+  color:
+    #10392c;
+}
+
+
+.portal-routing-card p {
+  color:
+    #70827b;
+}
+
+
+@media (
+  max-width: 850px
+) {
+  .role-navigation-inner {
+    align-items:
+      flex-start;
+
+    flex-direction:
+      column;
+
+    padding:
+      14px 0;
+  }
+
+
+  .role-navigation-links {
+    width: 100%;
+
+    overflow-x: auto;
+  }
+
+
+  .admin-home-hero {
+    align-items:
+      flex-start;
+
+    flex-direction:
+      column;
+  }
+
+
+  .admin-home-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .admin-workflow {
+    grid-template-columns:
+      1fr 1fr;
+  }
+}

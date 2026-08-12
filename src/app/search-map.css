@@ -1,0 +1,974 @@
+/* =========================================================
+   MEDIFLUX SEARCH + MAP PAGE
+========================================================= */
+
+.medicine-search-page {
+  min-height: 100vh;
+
+  padding:
+    70px 6% 90px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f4faf7 0%,
+      #ffffff 100%
+    );
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.medicine-search-hero {
+  max-width: 1000px;
+
+  margin:
+    0 auto 45px;
+
+  text-align: center;
+}
+
+
+.medicine-search-label {
+  display: inline-flex;
+
+  padding:
+    8px 16px;
+
+  margin-bottom:
+    16px;
+
+  border-radius:
+    999px;
+
+  background:
+    #e5f8ef;
+
+  color:
+    #087952;
+
+  font-size:
+    13px;
+
+  font-weight:
+    800;
+}
+
+
+.medicine-search-hero h1 {
+  margin: 0;
+
+  color:
+    #092a20;
+
+  font-size:
+    clamp(
+      38px,
+      5vw,
+      58px
+    );
+
+  letter-spacing:
+    -0.04em;
+}
+
+
+.medicine-search-hero p {
+  max-width: 720px;
+
+  margin:
+    14px auto 30px;
+
+  color:
+    #6a7e76;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   SEARCH BAR
+========================================================= */
+
+.medicine-search-form {
+  display: grid;
+
+  grid-template-columns:
+    2fr
+    0.8fr
+    0.8fr
+    140px;
+
+  gap: 10px;
+
+  padding: 10px;
+
+  border:
+    1px solid
+    #dce9e3;
+
+  border-radius:
+    18px;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.95
+    );
+
+  box-shadow:
+    0 18px 50px
+    rgba(
+      9,
+      70,
+      50,
+      0.09
+    );
+}
+
+
+.medicine-search-form input,
+.medicine-search-form select {
+  min-height: 50px;
+
+  padding:
+    0 15px;
+
+  border:
+    1px solid
+    #e3ece8;
+
+  border-radius:
+    12px;
+
+  outline: none;
+
+  background:
+    #f8fbf9;
+
+  color:
+    #17372d;
+
+  font: inherit;
+}
+
+
+.medicine-search-form input:focus,
+.medicine-search-form select:focus {
+  border-color:
+    #1eaa78;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(
+      30,
+      170,
+      120,
+      0.1
+    );
+}
+
+
+.medicine-search-form button {
+  border: none;
+
+  border-radius:
+    12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #087a56,
+      #15ad7b
+    );
+
+  color: white;
+
+  font-weight:
+    800;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.medicine-results-summary {
+  max-width: 1380px;
+
+  margin:
+    0 auto 18px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content:
+    space-between;
+}
+
+
+.medicine-results-summary
+div:first-child {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+
+.medicine-results-summary span {
+  color:
+    #788981;
+
+  font-size:
+    11px;
+
+  letter-spacing:
+    0.08em;
+
+  text-transform:
+    uppercase;
+}
+
+
+.medicine-results-summary strong {
+  color:
+    #11382b;
+
+  font-size:
+    20px;
+}
+
+
+.demo-data-badge {
+  padding:
+    8px 13px;
+
+  border-radius:
+    999px;
+
+  background:
+    #fff4d8;
+
+  color:
+    #8a6314;
+
+  font-size:
+    11px;
+
+  font-weight:
+    800;
+}
+
+
+/* =========================================================
+   MAIN TWO COLUMN LAYOUT
+========================================================= */
+
+.medicine-search-layout {
+  max-width: 1380px;
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(
+      360px,
+      0.85fr
+    )
+    minmax(
+      520px,
+      1.4fr
+    );
+
+  gap: 24px;
+
+  align-items: start;
+}
+
+
+/* =========================================================
+   PHARMACY RESULTS
+========================================================= */
+
+.pharmacy-results-panel {
+  max-height:
+    640px;
+
+  padding-right:
+    7px;
+
+  overflow-y:
+    auto;
+}
+
+
+.result-message {
+  padding:
+    30px;
+
+  border-radius:
+    16px;
+
+  background:
+    white;
+
+  color:
+    #697c75;
+
+  text-align:
+    center;
+}
+
+
+.pharmacy-result-card {
+  display: flex;
+
+  gap: 14px;
+
+  margin-bottom:
+    13px;
+
+  padding: 18px;
+
+  border:
+    1px solid
+    #dfebe5;
+
+  border-radius:
+    18px;
+
+  background:
+    white;
+
+  box-shadow:
+    0 7px 25px
+    rgba(
+      10,
+      64,
+      47,
+      0.05
+    );
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.pharmacy-result-card:hover {
+  transform:
+    translateY(-2px);
+
+  border-color:
+    #87d2b6;
+
+  box-shadow:
+    0 12px 30px
+    rgba(
+      10,
+      64,
+      47,
+      0.09
+    );
+}
+
+
+.pharmacy-result-card.is-selected {
+  border-color:
+    #14a777;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(
+      20,
+      167,
+      119,
+      0.1
+    );
+}
+
+
+.pharmacy-card-number {
+  width: 35px;
+  height: 35px;
+
+  flex:
+    0 0 35px;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius:
+    10px;
+
+  background:
+    #e4f8ef;
+
+  color:
+    #07835a;
+
+  font-weight:
+    900;
+}
+
+
+.pharmacy-result-content {
+  width: 100%;
+}
+
+
+.pharmacy-result-heading {
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  gap: 10px;
+}
+
+
+.verified-pharmacy-label {
+  color:
+    #0b9a6a;
+
+  font-size:
+    11px;
+
+  font-weight:
+    800;
+}
+
+
+.pharmacy-result-heading h2 {
+  margin:
+    4px 0 0;
+
+  color:
+    #12382c;
+
+  font-size:
+    16px;
+}
+
+
+.stock-pill {
+  height:
+    fit-content;
+
+  padding:
+    6px 9px;
+
+  border-radius:
+    999px;
+
+  background:
+    #def8eb;
+
+  color:
+    #087851;
+
+  font-size:
+    10px;
+
+  font-weight:
+    800;
+}
+
+
+.pharmacy-result-card p {
+  margin:
+    9px 0 13px;
+
+  color:
+    #75877f;
+
+  font-size:
+    13px;
+}
+
+
+/* =========================================================
+   MEDICINE INFORMATION
+========================================================= */
+
+.medicine-result-line {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    0.55fr;
+
+  gap: 10px;
+
+  padding: 12px;
+
+  border-radius:
+    12px;
+
+  background:
+    #f5faf7;
+}
+
+
+.medicine-result-line div {
+  display: flex;
+
+  flex-direction:
+    column;
+
+  gap: 4px;
+}
+
+
+.medicine-result-line small {
+  color:
+    #899891;
+
+  font-size:
+    10px;
+}
+
+
+.medicine-result-line strong {
+  color:
+    #153c30;
+
+  font-size:
+    13px;
+}
+
+
+/* =========================================================
+   RESULT BUTTONS
+========================================================= */
+
+.pharmacy-result-actions {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap: 8px;
+
+  margin-top:
+    12px;
+}
+
+
+.pharmacy-result-actions button {
+  min-height:
+    38px;
+
+  border-radius:
+    10px;
+
+  font-weight:
+    750;
+
+  cursor: pointer;
+}
+
+
+.view-map-button {
+  border:
+    1px solid
+    #cfdfd8;
+
+  background:
+    white;
+
+  color:
+    #154233;
+}
+
+
+.directions-button {
+  border: none;
+
+  background:
+    #0b8d62;
+
+  color: white;
+}
+
+
+/* =========================================================
+   MAP PANEL
+========================================================= */
+
+.medicine-map-panel {
+  position: sticky;
+
+  top: 105px;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    #dae8e2;
+
+  border-radius:
+    22px;
+
+  background:
+    white;
+
+  box-shadow:
+    0 18px 55px
+    rgba(
+      7,
+      59,
+      43,
+      0.1
+    );
+}
+
+
+.medicine-map-heading {
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  align-items:
+    center;
+
+  padding:
+    18px 20px;
+
+  border-bottom:
+    1px solid
+    #e5eee9;
+}
+
+
+.medicine-map-heading div {
+  display: flex;
+
+  flex-direction:
+    column;
+
+  gap: 3px;
+}
+
+
+.medicine-map-heading span {
+  color:
+    #84938d;
+
+  font-size:
+    11px;
+}
+
+
+.medicine-map-heading strong {
+  color:
+    #12372b;
+}
+
+
+.map-live-badge {
+  padding:
+    7px 10px;
+
+  border-radius:
+    999px;
+
+  background:
+    #e2f8ee;
+
+  color:
+    #087f58
+    !important;
+
+  font-weight:
+    800;
+}
+
+
+/* =========================================================
+   MAP
+========================================================= */
+
+.medicine-map {
+  width: 100%;
+
+  height: 590px;
+
+  z-index: 1;
+}
+
+
+.map-loading {
+  height: 590px;
+
+  display: grid;
+
+  place-items: center;
+
+  color:
+    #63766e;
+}
+
+
+/* =========================================================
+   CUSTOM MAP MARKER
+========================================================= */
+
+.medicine-map-icon-wrapper {
+  border: none;
+
+  background:
+    transparent;
+}
+
+
+.medicine-map-marker {
+  width: 38px;
+  height: 38px;
+
+  display: grid;
+
+  place-items: center;
+
+  border:
+    4px solid
+    white;
+
+  border-radius:
+    50% 50% 50% 8px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #08a872,
+      #20c994
+    );
+
+  color: white;
+
+  box-shadow:
+    0 7px 20px
+    rgba(
+      6,
+      85,
+      59,
+      0.3
+    );
+
+  transform:
+    rotate(-45deg);
+}
+
+
+.medicine-map-marker span {
+  display: block;
+
+  transform:
+    rotate(45deg);
+
+  font-size:
+    20px;
+
+  font-weight:
+    900;
+}
+
+
+.medicine-map-marker-selected {
+  background:
+    linear-gradient(
+      135deg,
+      #167bd9,
+      #39a8ef
+    );
+
+  box-shadow:
+    0 0 0 6px
+      rgba(
+        31,
+        146,
+        226,
+        0.16
+      ),
+    0 7px 20px
+      rgba(
+        6,
+        75,
+        120,
+        0.28
+      );
+}
+
+
+/* =========================================================
+   MAP POPUP
+========================================================= */
+
+.medicine-popup {
+  min-width:
+    200px;
+
+  display: flex;
+
+  flex-direction:
+    column;
+
+  gap: 6px;
+}
+
+
+.popup-verified {
+  color:
+    #079968
+    !important;
+
+  font-weight:
+    800;
+}
+
+
+.medicine-popup strong {
+  color:
+    #11392c;
+
+  font-size:
+    14px;
+}
+
+
+.medicine-popup span {
+  color:
+    #687c74;
+
+  font-size:
+    12px;
+}
+
+
+.popup-separator {
+  height: 1px;
+
+  margin:
+    5px 0;
+
+  background:
+    #e1ebe6;
+}
+
+
+.medicine-popup button {
+  margin-top:
+    7px;
+
+  padding:
+    9px;
+
+  border: none;
+
+  border-radius:
+    8px;
+
+  background:
+    #0b8f64;
+
+  color: white;
+
+  font-weight:
+    800;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.medicine-search-error {
+  max-width:
+    1380px;
+
+  margin:
+    0 auto 15px;
+
+  padding:
+    12px 15px;
+
+  border-radius:
+    10px;
+
+  background:
+    #fff0f0;
+
+  color:
+    #a53d3d;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (
+  max-width: 1000px
+) {
+  .medicine-search-form {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .medicine-search-layout {
+    grid-template-columns:
+      1fr;
+  }
+
+  .pharmacy-results-panel {
+    max-height: none;
+  }
+
+  .medicine-map-panel {
+    position: relative;
+
+    top: 0;
+  }
+}
+
+
+@media (
+  max-width: 650px
+) {
+  .medicine-search-page {
+    padding:
+      50px 16px 70px;
+  }
+
+  .medicine-search-form {
+    grid-template-columns:
+      1fr;
+  }
+
+  .medicine-map {
+    height: 450px;
+  }
+
+  .pharmacy-result-heading {
+    flex-direction:
+      column;
+  }
+}

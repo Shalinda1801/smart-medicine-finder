@@ -1,0 +1,1480 @@
+/* ==========================================================
+   MEDIFLUX HERO IMAGE SLIDER
+========================================================== */
+
+.cinematic-hero {
+  position: relative;
+
+  min-height: 690px;
+
+  isolation: isolate;
+
+  overflow: hidden;
+}
+
+
+/* ==========================================================
+   SLIDER CONTAINER
+========================================================== */
+
+.mf-hero-slider {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 0;
+
+  overflow: hidden;
+}
+
+
+/* ==========================================================
+   IMAGES
+========================================================== */
+
+.mf-hero-slides {
+  position: absolute;
+
+  inset: 0;
+}
+
+
+.mf-hero-slide {
+  position: absolute;
+
+  inset: 0;
+
+  opacity: 0;
+
+  background-size: cover;
+
+  background-repeat:
+    no-repeat;
+
+  transform:
+    scale(1.07);
+
+  transition:
+    opacity 1.5s ease-in-out,
+    transform 7s ease-out;
+
+  will-change:
+    opacity,
+    transform;
+}
+
+
+.mf-hero-slide.is-active {
+  opacity: 1;
+
+  transform:
+    scale(1);
+}
+
+
+/* ==========================================================
+   IMAGE OVERLAY
+
+   LEFT is brighter because hero text sits there.
+   RIGHT keeps much more of the actual photo visible.
+========================================================== */
+
+.mf-hero-image-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 2;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      90deg,
+
+      rgba(
+        244,
+        252,
+        248,
+        0.97
+      ) 0%,
+
+      rgba(
+        244,
+        252,
+        248,
+        0.92
+      ) 22%,
+
+      rgba(
+        242,
+        251,
+        247,
+        0.76
+      ) 42%,
+
+      rgba(
+        235,
+        250,
+        246,
+        0.42
+      ) 60%,
+
+      rgba(
+        221,
+        245,
+        241,
+        0.16
+      ) 78%,
+
+      rgba(
+        210,
+        240,
+        238,
+        0.08
+      ) 100%
+    );
+}
+
+
+/* ==========================================================
+   EXISTING HERO EFFECTS
+========================================================== */
+
+.cinematic-hero
+.hero-mesh {
+  position: absolute;
+
+  z-index: 3;
+}
+
+
+.cinematic-hero
+.cursor-glow {
+  position: absolute;
+
+  z-index: 4;
+
+  pointer-events: none;
+}
+
+
+.cinematic-hero
+.hero-grain {
+  position: absolute;
+
+  z-index: 5;
+
+  pointer-events: none;
+}
+
+
+/* ==========================================================
+   EXISTING CONTENT ABOVE BACKGROUND
+
+   Your heading, capsule, floating cards etc remain.
+========================================================== */
+
+.cinematic-hero
+.hero-layout {
+  position: relative;
+
+  z-index: 10;
+}
+
+
+.cinematic-hero
+.scroll-indicator {
+  z-index: 15;
+}
+
+
+/* ==========================================================
+   SLIDER ARROWS
+========================================================== */
+
+.mf-slider-arrow {
+  position: absolute;
+
+  top: 52%;
+
+  z-index: 40;
+
+  width: 46px;
+  height: 46px;
+
+  display: grid;
+
+  place-items: center;
+
+  padding: 0;
+
+  border:
+    1px solid
+    rgba(
+      14,
+      93,
+      69,
+      0.18
+    );
+
+  border-radius: 50%;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.72
+    );
+
+  color: #07583f;
+
+  box-shadow:
+    0 9px 30px
+    rgba(
+      10,
+      70,
+      51,
+      0.12
+    );
+
+  backdrop-filter:
+    blur(12px);
+
+  -webkit-backdrop-filter:
+    blur(12px);
+
+  font-size: 30px;
+
+  line-height: 1;
+
+  cursor: pointer;
+
+  pointer-events: auto;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+.mf-slider-arrow:hover {
+  transform:
+    scale(1.08);
+
+  background: white;
+
+  box-shadow:
+    0 13px 35px
+    rgba(
+      5,
+      65,
+      45,
+      0.18
+    );
+}
+
+
+.mf-slider-left {
+  left: 24px;
+}
+
+
+.mf-slider-right {
+  right: 24px;
+}
+
+
+/* ==========================================================
+   DOT / RADIO INDICATORS
+========================================================== */
+
+.mf-slider-dots {
+  position: absolute;
+
+  z-index: 50;
+
+  left: 50%;
+
+  bottom: 25px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  transform:
+    translateX(-50%);
+
+  pointer-events: auto;
+}
+
+
+.mf-slider-dot {
+  width: 9px;
+  height: 9px;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 999px;
+
+  background:
+    rgba(
+      9,
+      88,
+      61,
+      0.35
+    );
+
+  box-shadow:
+    0 0 0 1px
+    rgba(
+      255,
+      255,
+      255,
+      0.25
+    );
+
+  cursor: pointer;
+
+  transition:
+    width 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+
+.mf-slider-dot:hover {
+  transform:
+    scale(1.3);
+}
+
+
+.mf-slider-dot.is-active {
+  width: 28px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #11b678,
+      #2fa3eb
+    );
+}
+
+
+/* ==========================================================
+   AUTOMATIC TIMER LINE
+========================================================== */
+
+.mf-slider-progress {
+  position: absolute;
+
+  z-index: 50;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 3px;
+
+  overflow: hidden;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.25
+    );
+}
+
+
+.mf-slider-progress span {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  transform-origin:
+    left center;
+
+  background:
+    linear-gradient(
+      90deg,
+      #10b981,
+      #24b6ac,
+      #3288f4
+    );
+
+  animation:
+    medifluxHeroProgress
+    6s
+    linear forwards;
+}
+
+
+@keyframes medifluxHeroProgress {
+
+  from {
+    transform:
+      scaleX(0);
+  }
+
+  to {
+    transform:
+      scaleX(1);
+  }
+
+}
+
+
+/* ==========================================================
+   DARK MODE HERO
+========================================================== */
+
+html[data-theme="dark"]
+.mf-hero-slide {
+  filter:
+    brightness(0.55)
+    saturate(0.9);
+}
+
+
+html[data-theme="dark"]
+.mf-hero-image-overlay {
+  background:
+    linear-gradient(
+      90deg,
+
+      rgba(
+        7,
+        18,
+        14,
+        0.97
+      ) 0%,
+
+      rgba(
+        7,
+        18,
+        14,
+        0.92
+      ) 28%,
+
+      rgba(
+        7,
+        18,
+        14,
+        0.72
+      ) 48%,
+
+      rgba(
+        7,
+        18,
+        14,
+        0.48
+      ) 67%,
+
+      rgba(
+        7,
+        18,
+        14,
+        0.30
+      ) 100%
+    );
+}
+
+
+html[data-theme="dark"]
+.mf-slider-arrow {
+  border-color:
+    rgba(
+      255,
+      255,
+      255,
+      0.16
+    );
+
+  background:
+    rgba(
+      8,
+      29,
+      21,
+      0.70
+    );
+
+  color: white;
+}
+
+
+html[data-theme="dark"]
+.mf-slider-dot {
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.35
+    );
+}
+
+
+html[data-theme="dark"]
+.mf-slider-dot.is-active {
+  background:
+    linear-gradient(
+      90deg,
+      #25d99a,
+      #49a9ff
+    );
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (
+  max-width: 900px
+) {
+
+  .mf-hero-slide {
+    background-position:
+      center center !important;
+  }
+
+  .mf-slider-arrow {
+    width: 41px;
+    height: 41px;
+
+    font-size: 27px;
+  }
+
+  .mf-slider-left {
+    left: 12px;
+  }
+
+  .mf-slider-right {
+    right: 12px;
+  }
+
+}
+
+
+@media (
+  max-width: 600px
+) {
+
+  .mf-slider-arrow {
+    top: auto;
+
+    bottom: 22px;
+  }
+
+  .mf-slider-left {
+    left: 18px;
+  }
+
+  .mf-slider-right {
+    right: 18px;
+  }
+
+  .mf-slider-dots {
+    bottom: 35px;
+  }
+
+}
+
+
+/* ==========================================================
+   REDUCED MOTION
+========================================================== */
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+
+  .mf-hero-slide {
+    transform: none;
+
+    transition:
+      opacity 0.25s linear;
+  }
+
+  .mf-slider-progress span {
+    animation: none;
+  }
+
+  /* ==========================================================
+   MEDIFLUX ADVANCED MEDICINE ORBIT SYSTEM
+========================================================== */
+
+.mf-medicine-stage {
+  position: relative;
+
+  width: 520px;
+  height: 520px;
+
+  display: grid;
+
+  place-items: center;
+
+  isolation: isolate;
+}
+
+
+/* ==========================================================
+   MAIN ORBIT TRACKS
+========================================================== */
+
+.mf-orbit-track {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  transform-origin:
+    center center;
+
+  box-shadow:
+    inset 0 0 20px
+    rgba(14, 172, 116, 0.035);
+
+  z-index: 4;
+}
+
+
+/* LARGE ORBIT */
+
+.mf-orbit-track-one {
+  width: 430px;
+  height: 430px;
+
+  margin-left: -215px;
+  margin-top: -215px;
+
+  border:
+    2px solid
+    rgba(7, 155, 106, 0.42);
+
+  animation:
+    mfOrbitClockwise
+    18s
+    linear
+    infinite;
+}
+
+
+/* MIDDLE ORBIT */
+
+.mf-orbit-track-two {
+  width: 365px;
+  height: 365px;
+
+  margin-left: -182.5px;
+  margin-top: -182.5px;
+
+  border:
+    1.5px dashed
+    rgba(45, 141, 236, 0.46);
+
+  animation:
+    mfOrbitCounterClockwise
+    14s
+    linear
+    infinite;
+}
+
+
+/* INNER ORBIT */
+
+.mf-orbit-track-three {
+  width: 305px;
+  height: 305px;
+
+  margin-left: -152.5px;
+  margin-top: -152.5px;
+
+  border:
+    1.5px solid
+    rgba(67, 201, 161, 0.38);
+
+  animation:
+    mfOrbitClockwise
+    11s
+    linear
+    infinite;
+}
+
+
+/* ==========================================================
+   ORBIT ANIMATION
+========================================================== */
+
+@keyframes mfOrbitClockwise {
+
+  from {
+    transform:
+      rotate(0deg);
+  }
+
+  to {
+    transform:
+      rotate(360deg);
+  }
+
+}
+
+
+@keyframes mfOrbitCounterClockwise {
+
+  from {
+    transform:
+      rotate(360deg);
+  }
+
+  to {
+    transform:
+      rotate(0deg);
+  }
+
+}
+
+
+/* ==========================================================
+   SMALL ORBIT CAPSULES
+========================================================== */
+
+.mf-orbit-medicine {
+  position: absolute;
+
+  width: 51px;
+  height: 24px;
+
+  display: flex;
+
+  overflow: hidden;
+
+  border:
+    2px solid
+    rgba(255, 255, 255, 0.75);
+
+  border-radius: 999px;
+
+  box-shadow:
+    0 8px 20px
+    rgba(5, 60, 43, 0.22);
+
+  transform:
+    rotate(-35deg);
+}
+
+
+.mf-orbit-medicine span,
+.mf-orbit-medicine i {
+  width: 50%;
+  height: 100%;
+
+  display: block;
+}
+
+
+/* GREEN CAPSULE */
+
+.mf-orbit-capsule-green {
+  top: -12px;
+  left: 50%;
+
+  margin-left: -25px;
+}
+
+
+.mf-orbit-capsule-green span {
+  background:
+    linear-gradient(
+      135deg,
+      #08a870,
+      #35d39b
+    );
+}
+
+
+.mf-orbit-capsule-green i {
+  background:
+    #f9fffc;
+}
+
+
+/* BLUE CAPSULE */
+
+.mf-orbit-capsule-blue {
+  right: -25px;
+  top: 50%;
+
+  margin-top: -12px;
+
+  transform:
+    rotate(50deg);
+}
+
+
+.mf-orbit-capsule-blue span {
+  background:
+    linear-gradient(
+      135deg,
+      #238bea,
+      #44b9f2
+    );
+}
+
+
+.mf-orbit-capsule-blue i {
+  background:
+    #f5fbff;
+}
+
+
+/* PURPLE CAPSULE */
+
+.mf-orbit-capsule-purple {
+  left: -25px;
+  top: 50%;
+
+  margin-top: -12px;
+
+  transform:
+    rotate(35deg);
+}
+
+
+.mf-orbit-capsule-purple span {
+  background:
+    linear-gradient(
+      135deg,
+      #7567e9,
+      #ae82f6
+    );
+}
+
+
+.mf-orbit-capsule-purple i {
+  background:
+    #fffaff;
+}
+
+
+/* ==========================================================
+   ROUND TABLETS
+========================================================== */
+
+.mf-orbit-tablet {
+  position: absolute;
+
+  width: 32px;
+  height: 32px;
+
+  display: grid;
+
+  place-items: center;
+
+  border:
+    2px solid
+    rgba(255, 255, 255, 0.76);
+
+  border-radius: 50%;
+
+  font-size: 12px;
+
+  font-weight: 900;
+
+  box-shadow:
+    0 8px 20px
+    rgba(5, 60, 43, 0.20);
+}
+
+
+/* BLUE */
+
+.mf-orbit-tablet-blue {
+  bottom: -16px;
+  left: 50%;
+
+  margin-left: -16px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #62baff,
+      #1c88e8
+    );
+
+  color: white;
+}
+
+
+/* PINK */
+
+.mf-orbit-tablet-pink {
+  left: -16px;
+  top: 50%;
+
+  margin-top: -16px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff80ac,
+      #ea4b88
+    );
+
+  color: white;
+}
+
+
+/* GREEN */
+
+.mf-orbit-tablet-green {
+  right: -16px;
+  bottom: 22%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #42d79e,
+      #0d9e6c
+    );
+
+  color: white;
+}
+
+
+/* ==========================================================
+   MAIN MEDICINE GLASS CORE
+========================================================== */
+
+.mf-main-medicine-core {
+  position: relative;
+
+  width: 245px !important;
+  height: 245px !important;
+
+  display: grid;
+
+  place-items: center;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.82)
+    !important;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 32% 25%,
+
+      rgba(
+        255,
+        255,
+        255,
+        0.98
+      ),
+
+      rgba(
+        243,
+        255,
+        250,
+        0.93
+      )
+      42%,
+
+      rgba(
+        212,
+        239,
+        233,
+        0.87
+      )
+      100%
+    )
+    !important;
+
+  box-shadow:
+    0 30px 80px
+      rgba(
+        5,
+        75,
+        54,
+        0.18
+      ),
+
+    0 0 60px
+      rgba(
+        34,
+        197,
+        139,
+        0.14
+      ),
+
+    inset
+      0
+      1px
+      0
+      rgba(
+        255,
+        255,
+        255,
+        0.94
+      )
+    !important;
+
+  backdrop-filter:
+    blur(18px);
+
+  -webkit-backdrop-filter:
+    blur(18px);
+
+  z-index: 15 !important;
+}
+
+
+/* ==========================================================
+   MAIN CAPSULE
+========================================================== */
+
+.mf-main-capsule {
+  position: relative;
+
+  z-index: 20 !important;
+
+  transform:
+    rotate(-34deg)
+    scale(1.1);
+
+  filter:
+    drop-shadow(
+      0 18px 18px
+      rgba(
+        4,
+        70,
+        50,
+        0.22
+      )
+    );
+
+  animation:
+    mfMainMedicineFloat
+    4.3s
+    ease-in-out
+    infinite;
+}
+
+
+@keyframes mfMainMedicineFloat {
+
+  0%,
+  100% {
+    transform:
+      rotate(-34deg)
+      translateY(0)
+      scale(1.1);
+  }
+
+  50% {
+    transform:
+      rotate(-28deg)
+      translateY(-10px)
+      scale(1.13);
+  }
+
+}
+
+
+/* ==========================================================
+   CORE RINGS
+========================================================== */
+
+.mf-core-ring {
+  position: absolute;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+}
+
+
+.mf-core-ring-one {
+  width: 190px;
+  height: 190px;
+
+  border:
+    1px dashed
+    rgba(14, 166, 112, 0.32);
+
+  animation:
+    mfOrbitClockwise
+    12s
+    linear
+    infinite;
+}
+
+
+.mf-core-ring-two {
+  width: 155px;
+  height: 155px;
+
+  border:
+    1px solid
+    rgba(47, 150, 235, 0.22);
+
+  animation:
+    mfOrbitCounterClockwise
+    9s
+    linear
+    infinite;
+}
+
+
+/* ==========================================================
+   PARTICLES
+========================================================== */
+
+.mf-core-particle {
+  position: absolute;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #20c88a;
+
+  box-shadow:
+    0 0 15px
+    rgba(32, 200, 138, 0.75);
+
+  animation:
+    mfParticlePulse
+    2.5s
+    ease-in-out
+    infinite;
+}
+
+
+.mf-particle-one {
+  top: 42px;
+  right: 58px;
+}
+
+
+.mf-particle-two {
+  bottom: 48px;
+  left: 51px;
+
+  animation-delay:
+    0.7s;
+
+  background: #3497ec;
+}
+
+
+.mf-particle-three {
+  top: 52%;
+  right: 28px;
+
+  animation-delay:
+    1.3s;
+
+  background: #61dbad;
+}
+
+
+@keyframes mfParticlePulse {
+
+  0%,
+  100% {
+    opacity: 0.35;
+
+    transform:
+      scale(0.7);
+  }
+
+  50% {
+    opacity: 1;
+
+    transform:
+      scale(1.45);
+  }
+
+}
+
+
+/* ==========================================================
+   STRENGTHEN FLOATING CARDS
+========================================================== */
+
+.mf-medicine-stage
+.floating-card {
+
+  z-index: 40 !important;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.91
+    )
+    !important;
+
+  box-shadow:
+    0 14px 38px
+    rgba(
+      7,
+      64,
+      47,
+      0.15
+    )
+    !important;
+
+  backdrop-filter:
+    blur(15px);
+
+  -webkit-backdrop-filter:
+    blur(15px);
+}
+
+
+.mf-medicine-stage
+.visual-status {
+  z-index: 40 !important;
+}
+
+
+/* ==========================================================
+   DARK MODE
+========================================================== */
+
+html[data-theme="dark"]
+.mf-orbit-track-one {
+  border-color:
+    rgba(
+      66,
+      232,
+      171,
+      0.47
+    );
+}
+
+
+html[data-theme="dark"]
+.mf-orbit-track-two {
+  border-color:
+    rgba(
+      71,
+      166,
+      255,
+      0.44
+    );
+}
+
+
+html[data-theme="dark"]
+.mf-orbit-track-three {
+  border-color:
+    rgba(
+      95,
+      226,
+      184,
+      0.36
+    );
+}
+
+
+html[data-theme="dark"]
+.mf-main-medicine-core {
+  background:
+    radial-gradient(
+      circle at 30% 25%,
+      rgba(
+        34,
+        62,
+        51,
+        0.96
+      ),
+      rgba(
+        12,
+        34,
+        26,
+        0.94
+      )
+    )
+    !important;
+
+  border-color:
+    rgba(
+      255,
+      255,
+      255,
+      0.14
+    )
+    !important;
+}
+
+
+/* ==========================================================
+   TABLET / LAPTOP
+========================================================== */
+
+@media (
+  max-width: 1100px
+) {
+
+  .mf-medicine-stage {
+    width: 440px;
+    height: 440px;
+  }
+
+  .mf-orbit-track-one {
+    width: 375px;
+    height: 375px;
+
+    margin-left:
+      -187.5px;
+
+    margin-top:
+      -187.5px;
+  }
+
+  .mf-orbit-track-two {
+    width: 320px;
+    height: 320px;
+
+    margin-left:
+      -160px;
+
+    margin-top:
+      -160px;
+  }
+
+  .mf-orbit-track-three {
+    width: 270px;
+    height: 270px;
+
+    margin-left:
+      -135px;
+
+    margin-top:
+      -135px;
+  }
+
+  .mf-main-medicine-core {
+    width:
+      220px !important;
+
+    height:
+      220px !important;
+  }
+
+}
+
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (
+  max-width: 700px
+) {
+
+  .mf-medicine-stage {
+    width: 330px;
+    height: 330px;
+
+    margin: 25px auto 0;
+  }
+
+  .mf-orbit-track-one {
+    width: 290px;
+    height: 290px;
+
+    margin-left:
+      -145px;
+
+    margin-top:
+      -145px;
+  }
+
+  .mf-orbit-track-two {
+    width: 245px;
+    height: 245px;
+
+    margin-left:
+      -122.5px;
+
+    margin-top:
+      -122.5px;
+  }
+
+  .mf-orbit-track-three {
+    width: 205px;
+    height: 205px;
+
+    margin-left:
+      -102.5px;
+
+    margin-top:
+      -102.5px;
+  }
+
+  .mf-main-medicine-core {
+    width:
+      175px !important;
+
+    height:
+      175px !important;
+  }
+
+  .mf-orbit-medicine {
+    transform:
+      scale(0.82)
+      rotate(-35deg);
+  }
+
+  .mf-orbit-tablet {
+    transform:
+      scale(0.82);
+  }
+
+}
+
+
+/* ==========================================================
+   REDUCED MOTION
+========================================================== */
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+
+  .mf-orbit-track,
+  .mf-main-capsule,
+  .mf-core-ring,
+  .mf-core-particle {
+    animation: none !important;
+  }
+
+}
+
+}
