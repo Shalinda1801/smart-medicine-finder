@@ -334,17 +334,23 @@ export default function PremiumHome() {
   ] =
     useState("");
 
-  const [
-    toast,
-    setToast,
-  ] =
-    useState("");
+ const [
+  toast,
+  setToast,
+] =
+  useState("");
 
-  const [
-    commandOpen,
-    setCommandOpen,
-  ] =
-    useState(false);
+const [
+  contactSending,
+  setContactSending,
+] =
+  useState(false);
+
+const [
+  commandOpen,
+  setCommandOpen,
+] =
+  useState(false);
 
   const [
     commandQuery,
@@ -947,19 +953,97 @@ export default function PremiumHome() {
     }
   }
 
-  function submitContact(
-    event:
-      FormEvent<HTMLFormElement>,
-  ) {
-    event.preventDefault();
+  async function submitContact(
+  event: FormEvent<HTMLFormElement>,
+) {
+  event.preventDefault();
 
-    setToast(
-      t(
-        "home.contact.success",
-      ),
+  const form =
+    event.currentTarget;
+
+  const formData =
+    new FormData(form);
+
+  const payload = {
+    name: String(
+      formData.get("name") ??
+        "",
+    ).trim(),
+
+    email: String(
+      formData.get("email") ??
+        "",
+    ).trim(),
+
+    topic: String(
+      formData.get("topic") ??
+        "",
+    ),
+
+    message: String(
+      formData.get("message") ??
+        "",
+    ).trim(),
+  };
+
+  try {
+    setContactSending(
+      true,
     );
 
-    event.currentTarget.reset();
+    const response =
+      await fetch(
+        "/api/contact",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+
+          body:
+            JSON.stringify(
+              payload,
+            ),
+        },
+      );
+
+    const result:
+      {
+        success?: boolean;
+        message?: string;
+      } =
+      await response.json();
+
+    if (
+      !response.ok ||
+      !result.success
+    ) {
+      throw new Error(
+        result.message ??
+          "Could not send message.",
+      );
+    }
+
+    setToast(
+      result.message ??
+        t(
+          "home.contact.success",
+        ),
+    );
+
+    form.reset();
+  } catch (error) {
+    setToast(
+      error instanceof Error
+        ? error.message
+        : "Could not send message.",
+    );
+  } finally {
+    setContactSending(
+      false,
+    );
 
     window.setTimeout(
       () => {
@@ -968,7 +1052,7 @@ export default function PremiumHome() {
       3500,
     );
   }
-
+}
   /* =======================================================
      STARTUP LOADER
   ======================================================= */
@@ -2840,11 +2924,13 @@ export default function PremiumHome() {
                   </span>
 
                   <input
-                    required
-                    placeholder={t(
-                      "contact.namePlaceholder",
-                    )}
-                  />
+  required
+  name="name"
+  autoComplete="name"
+  placeholder={t(
+    "contact.namePlaceholder",
+  )}
+/>
                 </label>
 
                 <label>
@@ -2855,12 +2941,14 @@ export default function PremiumHome() {
                   </span>
 
                   <input
-                    required
-                    type="email"
-                    placeholder={t(
-                      "contact.emailPlaceholder",
-                    )}
-                  />
+  required
+  name="email"
+  type="email"
+  autoComplete="email"
+  placeholder={t(
+    "contact.emailPlaceholder",
+  )}
+/>
                 </label>
               </div>
 
@@ -2872,8 +2960,10 @@ export default function PremiumHome() {
                 </span>
 
                 <select
-                  defaultValue=""
-                >
+  required
+  name="topic"
+  defaultValue=""
+>
                   <option
                     value=""
                     disabled
@@ -2917,25 +3007,34 @@ export default function PremiumHome() {
                 </span>
 
                 <textarea
-                  required
-                  rows={5}
-                  placeholder={t(
-                    "contact.messagePlaceholder",
-                  )}
-                />
+  required
+  name="message"
+  rows={5}
+  maxLength={3000}
+  placeholder={t(
+    "contact.messagePlaceholder",
+  )}
+/>
               </label>
 
               <button
-                type="submit"
-              >
-                {t(
-                  "contact.send",
-                )}
+  type="submit"
+  disabled={
+    contactSending
+  }
+>
+  {contactSending
+    ? "Sending..."
+    : t(
+        "contact.send",
+      )}
 
-                <span>
-                  ↗
-                </span>
-              </button>
+  <span>
+    {contactSending
+      ? "…"
+      : "↗"}
+  </span>
+</button>
             </form>
           </div>
         </section>
